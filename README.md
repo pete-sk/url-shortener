@@ -1,4 +1,4 @@
-shortenu.herokuapp.com
+### [shortenu.herokuapp.com](https://shortenu.herokuapp.com)
 
 Flask web application that allows the user to shorten a long URL, optionally set a custom alias and generate a QR code. Registered user are able to delete their managed links.
 
