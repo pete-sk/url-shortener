@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="content-section pb-4">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend class="mt-4">{{ title }}</legend>
+      
+      <div class="row pt-2">
+        <div class="col">
+        <span class="form-text">All your managed links will be permanently deleted. This process is irreversible.</span>
+        </div>
+      </div>
+
+      <div class="form-group mt-4">
+        {% if form.password.errors %}
+					{{ form.password(class="form-control form-control-lg is-invalid", **{"placeholder": form.password.label.text, "aria-label": form.password.label.text}) }}
+					<div class="invalid-feedback">
+						{% for error in form.password.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.password(class="form-control form-control-lg", **{"placeholder": form.password.label.text, "aria-label": form.password.label.text}) }}
+				{% endif %}
+      </div>
+    </fieldset>
+    {{ form.submit(class="btn btn-lg btn-danger btn-block", **{'value': 'Delete My Account'}) }}
+  </form>
+</div>
+  
+{% endblock %}

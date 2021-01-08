@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="content-section">
+	<!-- Update account form -->
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<legend class="mb-4">{{ title }}</legend>
+		
+			<div class="form-group">
+				{{ form.email.label(class="form-control-label") }}
+				
+				{% if form.email.errors %}
+					{{ form.email(class="form-control form-control-lg is-invalid", **{"placeholder": form.email.label.text, "aria-label": form.email.label.text}) }}
+					<div class="invalid-feedback">
+						{% for error in form.email.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.email(class="form-control form-control-lg", **{"placeholder": form.email.label.text, "aria-label": form.email.label.text}) }}
+				{% endif %}
+			</div>
+
+      <div class="form-group mt-4">
+        {% if form.current_password.errors %}
+          {{ form.current_password(class="form-control form-control-lg is-invalid", **{"placeholder": form.current_password.label.text, "aria-label": form.current_password.label.text}) }}
+          <div class="invalid-feedback">
+            {% for error in form.current_password.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.current_password(class="form-control form-control-lg", **{"placeholder": form.current_password.label.text, "aria-label": form.current_password.label.text}) }}
+        {% endif %}
+      </div>
+
+      <div class="form-group mt-4">
+        {% if form.new_password.errors %}
+          {{ form.new_password(class="form-control form-control-lg is-invalid", **{"placeholder": form.new_password.label.text, "aria-label": form.new_password.label.text}) }}
+          <div class="invalid-feedback">
+            {% for error in form.new_password.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.new_password(class="form-control form-control-lg", **{"placeholder": form.new_password.label.text, "aria-label": form.new_password.label.text}) }}
+        {% endif %}
+      </div>
+    
+      <div class="form-group mt-4">
+        {% if form.confirm_password.errors %}
+          {{ form.confirm_password(class="form-control form-control-lg is-invalid", **{"placeholder": form.confirm_password.label.text, "aria-label": form.confirm_password.label.text}) }}
+          <div class="invalid-feedback">
+            {% for error in form.confirm_password.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.confirm_password(class="form-control form-control-lg", **{"placeholder": form.confirm_password.label.text, "aria-label": form.confirm_password.label.text}) }}
+        {% endif %}
+      </div>      
+		</fieldset>
+
+		<div class="form-group">
+      <div class="row">
+        <div class="col">
+          {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+        </div>
+        <div class="col">
+          <a class="btn btn-lg btn-danger btn-block float-right" href="{{ url_for('account.delete_account') }}">Delete Account</a>
+        </div>
+      </div>
+		</div>
+	</form> 
+</div>
+{% endblock %}

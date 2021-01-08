@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section pt-4">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+
+    <div>
+      {% if form.original_url.errors %}
+        {{ form.original_url(class="form-control form-control-lg is-invalid", **{"placeholder": form.original_url.label.text, "aria-label": form.original_url.label.text}) }}
+        <div class="invalid-feedback">
+          {% for error in form.original_url.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.original_url(class="form-control form-control-lg", **{"placeholder": form.original_url.label.text, "aria-label": form.original_url.label.text}) }}
+      {% endif %}
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-xl-9 col-12">
+        {% if form.custom_link.errors %}
+          {{ form.custom_link(class="form-control form-control-lg mr-sm-2 is-invalid", **{"placeholder": form.custom_link.label.text, "aria-label": form.custom_link.label.text}) }}
+          <div class="invalid-feedback">
+            {% for error in form.custom_link.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          {{ form.custom_link(class="form-control form-control-lg mr-sm-2", **{"placeholder": form.custom_link.label.text, "aria-label": form.custom_link.label.text}) }}
+        {% endif %}
+      </div>
+      <div class="col-xl-3 mt-xl-0 col-12 mt-3">
+        {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+      </div>
+    </div>
+  </form>
+
+  {% if current_user.is_authenticated %}
+    <legend class="mt-5">My Links</legend>
+  {% endif %}
+
+  {% if managed_links %}
+    {% for link in managed_links %}
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" placeholder="{{ link.original_url }}" aria-label="{{ link.original_url }}">{{ link.original_url }}</h5>
+          <div class="mt-2">
+            <a href="{{ link.link }}" class="card-link card-link-white" id="link-{{ link.link }}">shortenu.herokuapp.com/{{ link.link }}</a>
+            <div class="float-right">
+              <a href="javascript://" class="card-link" tabindex="0" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="Copied to clipboard!" onclick="copyToClipboard('{{link.link }}');">Copy</a>
+              <a href="javascript://" class="card-link" data-toggle="modal" data-target="#QRcodeModal" onclick="loadQrCodeModal('{{ link.link }}');">QR code</a>
+              {% if current_user.is_authenticated %}
+                <a href="javascript://" class="card-link" tabindex="0" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="Coming soon!">Analytics</a>
+                <a href="{{ url_for('main.delete_link', link=link.link) }}" class="card-link">Delete</a>
+              {% endif %}
+            </div>
+          </div>  
+        </div>
+      </div>        
+    {% endfor %}
+
+  {% else %}
+    {% if current_user.is_authenticated %}
+    <div class="bd-callout mt-4">
+      <h5>You haven't created any links yet.</h5>
+    </div>
+    {% endif %}
+  {% endif %}
+
+  {% if not current_user.is_authenticated %}
+    <div class="bd-callout bd-callout-warning">
+      <h5>Register to access more features.</h5>
+      <p>Sign up to access more features, such as detailed analytics and the ability to deactivate any of your managed links. Registered users are able to manage URLs created by them and can access associated QR codes at any moment.</p>
+      <a class="btn btn-primary btn-lg btn-block mt-2" href="{{ url_for('account.register') }}" role="button">Get Started</a>
+    </div>
+  {% endif %}
+</div>
+
+<!-- tmp input field for copying to clipboard -->
+<div id="tmp-input"></div>
+
+<!-- QR code modal -->
+<div class="modal" id="QRcodeModal" tabindex="-1" role="dialog" aria-labelledby="QRcodeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content ">
+          <div class="modal-header d-flex justify-content-center">
+              <h6 class="modal-title" id="QRcodeModalLabel"></h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body d-flex justify-content-center">
+              <img class="qr-code" id="qr-code">
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+              <a id="qr-code-download" href="" type="button" class="btn btn-primary" download>Download QR Code</a>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/qrious.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/qrcode.js') }}"></script>
+{% endblock content %}

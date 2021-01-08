@@ -1,0 +1,115 @@
+body {
+    /* background: #343a40; */
+    background: #191919;
+    color: #ffffff;
+    margin-top: 5rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+  
+  a {
+    color: #b8daff;
+  }
+
+  a:hover {
+    color: #ffffff;
+  }
+
+  .site-header .navbar-nav .nav-link {
+    /* color: #cbd5db; */
+    color: #b8daff;
+  }
+  
+  .site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+  }
+  
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+
+  .navbar-dark .navbar-toggler {
+     border-style: none;
+  }
+
+  .navbar .navbar-collapse {
+    text-align: center;
+  }
+
+  .content-section {
+    background: #343a40;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  .alert {
+    color: #fff3cd;
+    background-color: transparent;
+    border-color: transparent;
+    border-style: none;
+    margin-bottom: 0rem;
+  }
+
+  .bd-callout {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-left-color: #f8f9fa;
+    border-radius: .25rem;
+  }
+
+  .card {
+    background-color: #343a40;
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-left-color: #f8f9fa;
+    border-radius: .25rem;
+  }
+
+  .card-title, .modal-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+  }
+  
+  .card-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+  }
+
+  .card-link-white {
+    color: #ffffff;
+  }
+
+  .modal-content {
+    background-color: #343a40;
+  }
+
+  .qr-code {
+    width: 200px;
+    height: 200px;
+  }
+
+  .close {
+    color: #ffffff !important;
+    text-shadow: 0 1px 0 #ffffff !important;
+    opacity: 100;
+  }
+
+  .invalid-feedback {
+    color: #f8d7da;
+  }
+
+  .form-control.is-invalid, .was-validated .form-control:invalid {
+    border-color: #f8d7da;
+  }

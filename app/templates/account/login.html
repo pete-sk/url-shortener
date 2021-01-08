@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="content-section pb-5">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset class="form-group">
+			<legend class="mb-4">{{ title }}</legend>
+			
+			<div class="form-group">
+				{% if form.email.errors %}
+					{{ form.email(class="form-control form-control-lg is-invalid", **{"placeholder": form.email.label.text, "aria-label": form.email.label.text}) }}
+					<div class="invalid-feedback">
+						{% for error in form.email.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.email(class="form-control form-control-lg", **{"placeholder": form.email.label.text, "aria-label": form.email.label.text}) }}
+				{% endif %}
+			</div>
+
+			<div class="form-group mt-4">
+				{% if form.password.errors %}
+					{{ form.password(class="form-control form-control-lg is-invalid", **{"placeholder": form.password.label.text, "aria-label": form.password.label.text}) }}
+					<div class="invalid-feedback">
+						{% for error in form.password.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% else %}
+					{{ form.password(class="form-control form-control-lg", **{"placeholder": form.password.label.text, "aria-label": form.password.label.text}) }}
+				{% endif %}
+			</div>
+		
+			<a class="float-right" href="{{ url_for('account.reset_request') }}">Reset Password</a>
+		</fieldset>
+
+		<div class="form-group">
+			{{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+		</div>	
+	</form>
+
+	<a class="float-right" href="{{ url_for('account.register') }}">Create an account</a>
+</div>
+
+{% endblock %}
