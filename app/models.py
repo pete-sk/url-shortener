@@ -55,6 +55,19 @@ class Link(db.Model):
     original_url = db.Column(db.String(9999), nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    clicks = db.relationship('Click', backref='link', lazy='dynamic')
 
     def __repr__(self):
         return f"Link('{self.id}, {self.link}', '{self.original_url}', '{self.date_created}', '{self.user_id}')"
+
+
+class Click(db.Model):
+    click_id = db.Column(db.Integer, primary_key=True)
+    link_id = db.Column(db.Integer, db.ForeignKey('link.id'), nullable=False)
+    date_clicked = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    ip_address = db.Column(db.String(20), nullable=True)
+    user_agent = db.Column(db.String(9999), nullable=True)
+    referrer_page = db.Column(db.String(99999), nullable=True)
+
+    def __repr__(self):
+        return f"Click('{self.link_id}, {self.time}, {self.ip_address}, {self.user_agent}, {self.referrer_page}"

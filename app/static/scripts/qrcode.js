@@ -1,7 +1,7 @@
 
 // generate QR code
 function generateQrCode (link) {
-    let value = 'https://' + window.location.hostname + '/' + link;
+    let value = window.location.origin + '/' + link;
     let qrCodeImg = new QRious({
         value: value,
         size: 1000,
@@ -17,7 +17,7 @@ function generateQrCode (link) {
   
 // load QR code modal data
 function loadQrCodeModal (link) { 
-    document.querySelector('#QRcodeModalLabel').innerHTML = '/' + link;
+    document.querySelector('#QRcodeModalLabel').innerHTML = link;
     document.querySelector('#qr-code-download').download = link + '.jpg'
     generateQrCode(link);
 }

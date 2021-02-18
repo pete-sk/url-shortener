@@ -1,8 +1,8 @@
 from flask import url_for
 from flask_mail import Message
 
-from app import mail, db
-from app.models import Link
+from app import mail
+from app.main.utils import delete_link_and_stats
 
 
 def send_activation_email(user):
@@ -24,7 +24,5 @@ def send_reset_email(user):
 
 
 def wipe_user_data(user):
-    managed_links = Link.query.filter_by(user_id=user.id).all()
-    for entry in managed_links:
-        db.session.delete(entry)
-    db.session.commit()
+    for entry in user.managed_links:
+        delete_link_and_stats(entry)

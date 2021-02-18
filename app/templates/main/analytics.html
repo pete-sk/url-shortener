@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section pt-4">
+   <a href="/{{ entry.link }}"><h5>shortenu.herokuapp.com/{{ entry.link }}</h5></a>
+   <div class="card-text card-link-grey">{{ entry.original_url }}</div>
+
+   <div class="mt-2">
+      <b>Date created:</b> {{ date_created }}
+   </div>
+
+   {% if num_of_clicks > 0 %}    
+      <div class="mt-4">
+         <b>Total clicks: </b><span id="num-of-clicks">{{ num_of_clicks }}</span>
+      </div>
+      <div class="mt-2">
+         <b>Clicks today:</b> {{ clicks_today }}
+      </div>
+      <div class="mt-2">
+         <b>Last click:</b> 
+            {{ last_click }}
+      </div>
+      <div class="mt-2">
+         <b>First click:</b> 
+            {{ first_click }}
+      </div>
+      <div class="mt-2"> 
+         <b>Top locations:</b>
+            {% for location in top_locations %}
+               {{ location[0] }}&nbsp<span class="analytics-value">({{ '%0.1f' % (location[1] / num_of_clicks * 100)|float }}%)</span>{% if not loop.last %},{% endif %}
+            {% endfor %}
+      </div>
+      <div class="mt-2"> 
+         <b>Top platforms:</b> 
+            {% for platform in top_platforms %}
+               {{ platform[0] }}&nbsp<span class="analytics-value">({{ '%0.1f' % (platform[1] / num_of_clicks * 100)|float }}%)</span>{% if not loop.last %},{% endif %}
+            {% endfor %}  
+      </div>
+      <div class="mt-2"> 
+         <b>Top browsers:</b> 
+            {% for browser in top_browsers %}
+               {{ browser[0] }}&nbsp<span class="analytics-value">({{ '%0.1f' % (browser[1] / num_of_clicks * 100)|float }}%)</span>{% if not loop.last %},{% endif %}
+            {% endfor %}         
+      </div>
+      <div class="mt-2">
+         <b>Top traffic sources:</b>
+            {% for referrer in top_referrers %}
+               <div class="analytics-traffic-link">
+                  {% if referrer[0] == 'None' %}
+                     Direct/Unknown
+                  {% elif referrer[0] == 'Other' %}
+                     Other
+                  {% else %}
+                     <a href="{{ referrer[0] }}">{{ referrer[0] }}</a>
+                  {% endif %}
+                  <span class="analytics-value">({{ '%0.1f' % (referrer[1] / num_of_clicks * 100)|float }}%)</span>
+               </div>
+            {% endfor %}
+      </div>
+
+      <h5 class="mt-4">Statistics</h5>
+      <div class="card">
+         <div class="card-body-compact">
+           <span><b>Ordinal, Date, Time, Location, Platform, Browser, IP address, Referrer</b></span>
+         </div>
+      </div>
+      <div id='statistics'></div>      
+      <button class="btn btn-block btn-primary mb-3" id='load-more-button'>Load more</button>
+         
+   {% else %}
+      <h5 class="mt-4">No data available.</h5>
+   {% endif %}
+</div>
+
+<div id='link' hidden>{{ entry.link }}</div>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/download_statistics.js') }}"></script>
+{% endblock content %}

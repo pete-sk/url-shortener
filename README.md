@@ -1,8 +1,6 @@
 ### [shortenu.herokuapp.com](https://shortenu.herokuapp.com)
 
-Flask web application that allows the user to shorten a long URL, optionally set a custom alias and generate a QR code. Registered user are able to delete their managed links.
-
-Coming soon: registered users will be able to access analytics about their managed links.
+Flask web application that allows the user to shorten a long URL, optionally set a custom alias and generate a QR code. Registered users are able to delete their managed links and access traffic analytics and statistics.
 
 ### Screenshots:
 ![Screenshot 1](/screenshots/1.png)

@@ -24,5 +24,5 @@ class ShortenURL(FlaskForm):
 
         length = len(custom_link.data)
         if length != 0:
-            if length < 3:
+            if length < 3 or length > 16:
                 raise ValidationError('Field must be between 3 and 16 characters long.')
